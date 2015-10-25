@@ -1,50 +1,62 @@
-# coding: UTF-8
-# --------------Part 1------------------------------------------
-import os
-import math
+#coding:utf-8
 
-D1 = 45 # Диаметр 1 круга
-D2 = 338 # Диаметр 2 круга
-D3 = 19 # Диаметр 3 круга
+s = ['Виталий Жуков', 'Дарья Шкурко', 'Дмитрий Синицкий',
+     'Игорь Лавров', 'Андрей Ульянов', 'Павел Щербаков',
+     'Игорь Друзь', 'Дмитрий Гусь']
 
-# расчет площадей
-S1 = math.pi*pow(D1,2)/4
-S2 = math.pi*pow(D2,2)/4
-S3 = math.pi*pow(D3,2)/4
+# Вывод имени одного студента на экран
 
-# Вывод площадей на экран
-print(S1, S2, S3)
+index = int(input("Введите индекс студента: "))
+print("Под индексом", index, s[index-1][:s[index-1].find(' ')])
 
-# Из третьей площади круга вычесть площадь двух других кругов и вывод итога на экран
-itog = S3 - (S1 + S2)
-в
-print(itog)
+#Вывод имен нескольких студентов
 
-#---------------Part 2------------------------------------------
+start = int(input("\nВведите начальный индекс: "))
+finish = int(input("Введите конечный индекс: "))
+print("Срез s[", start, ":", finish, "] - это", end=" ")
+s1 = s[start-1:finish]
 
-A = [1, -20, 38, 0, 44]
-B = [88, -20, 48, 4, 33,2]
+for ind in range(len(s1)):
+    s1[ind] = s1[ind][:s1[ind].find(' ')]
+print(s1)
 
-for i in range(len(A)):
-    if A[i] < B[i]:
-        print(A[i])
+#Находим имена студентов в именах которых есть буква "р"
+
+number = 0
+for fi in s:
+    fi = fi[:fi.find(' ')]
+    if fi.find('р') >= 0:
+        number += 1
+print('\nКоличество людей с буквой "р" в имени = ', number)
+
+#Находим группы студентов с одинаковыми именами и создаем списки тих групп
+
+groups = []
+
+for ind in range(len(s)):
+    nezachem = False
+
+    if(len(groups) != 0):
+        for sp in groups:
+            if(len(sp) != 0):
+                if(sp[0][:sp[0].find(' ')] == s[ind]):
+                    nezachem = True
+                    break
+
+    if(nezachem != True):
+        spisok = []
+
+        for ind1 in range(len(s)-ind - 1):
+            if s[ind][:s[ind].find(' ')] == s[ind1+ind+1][:s[ind1+ind+1].find(' ')]:
+                if(len(spisok) != 0):
+                    spisok.append(s[ind1+ind+1])
+                else:
+                    spisok.append(s[ind])
+                    spisok.append(s[ind1+ind+1])
+
+        if(len(spisok) != 0):
+            groups.append(spisok)
     else:
-        print(B[i])
+        continue
 
-        
-    if abs(A[i] - B[i]) < 15:
-        print('Congratulations!')
-    else:
-        print('Sorry, but your summ > 15!')
-        
-#---------------Part 3------------------------------------------
-a = input("a = ")
-b = input("b = ")
-c = input(" +/- ") # Выбор действия сложения или вычитания
-
-if c == '+':
-    print ("Summ a, b = " + str(int(a)+int(b)))
-elif c == '-':
-    print ("Difference a, b = " + str(int(a)-int(b)))
-else:
-    print ("Error")
+print("\nСтуденты с одинаковыми именами: ", groups)
