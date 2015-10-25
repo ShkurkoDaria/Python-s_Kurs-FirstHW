@@ -62,7 +62,7 @@ print(S1, S2, S3)
 
 # Из третьей площади круга вычесть площадь двух других кругов и вывод итога на экран
 itog = S3 - (S1 + S2)
-в
+
 print(itog)
 
 #---------------Part 2------------------------------------------
@@ -70,7 +70,14 @@ print(itog)
 A = [1, -20, 38, 0, 44]
 B = [88, -20, 48, 4, 33,2]
 
-for i in range(len(A)):
+counter = 0
+
+if len(A) <= len(B):
+    counter = len(A)
+else:
+    counter = len(B)
+
+for i in range(counter):
     if A[i] < B[i]:
         print(A[i])
     else:
@@ -88,8 +95,8 @@ b = input("b = ")
 c = input(" +/- ") # Выбор действия сложения или вычитания
 
 if c == '+':
-    print ("Summ a, b = " + str(int(a)+int(b)))
+    print ("Summ a, b = " + str(float(a)+float(b)))
 elif c == '-':
-    print ("Difference a, b = " + str(int(a)-int(b)))
+    print ("Difference a, b = " + str(float(a)-float(b)))
 else:
     print ("Error")
